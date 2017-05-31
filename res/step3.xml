@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+    <bean id="baseSaxophonist" class="kz.test.step2.Instrumentalist" abstract="true" >
+        <property name="instrument" ref="saxophone" />
+        <property name="song" value="Jingle Bells" />
+
+    </bean>
+    <bean id="saxophone" class="kz.test.step2.Saxophone" />
+
+    <bean id="kenny" parent="baseSaxophonist" />
+    <bean id="david" parent="baseSaxophonist" />
+    <bean id="frank" parent="baseSaxophonist">
+        <property name="song" value="Mary had alittle lamb" />
+    </bean>
+
+    <bean id="basePerformer" abstract="true">
+        <property name="song" value="Somwhere Over the Rainbow" />
+    </bean>
+
+    <bean id="taylor" class="kz.test.step3.Vocalist" parent="basePerformer" />
+    <bean id="steve" class="kz.test.step2.Instrumentalist" parent="basePerformer">
+        <property name="instrument" ref="saxophone" />
+    </bean>
+
+
+
+
+
+</beans>
