@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+
+>
+
+    <bean id="duke" class="kz.test.step2.PoeticJuggler">
+        <constructor-arg value="15"/>
+       <!-- <constructor-arg ref="sonnet29"/>-->
+        <constructor-arg>
+            <bean class="kz.test.step2.Sonnet29" />
+        </constructor-arg>
+    </bean>
+
+    <bean id="sonnet29" class="kz.test.step2.Sonnet29"/>
+
+    <bean id="theStage" class="kz.test.step2.Stage" factory-method="getInstance"/>
+    <bean id="auditorium" class="kz.test.step2.Auditorium" init-method="turnOnLights" destroy-method="turnOffLights"/>
+    <!-- <bean id="auditorium" class="kz.test.step2.Auditorium"/>-->
+    <!--<bean id="kenny" class="kz.test.step2.Instrumentalist" >
+        <property name="song" value="Jingle Bells" />
+        <property name="age" value="37" />
+        <property name="instrument" ref="piano" >
+        <property name="instrument" >
+            <bean class="kz.test.step2.Saxophone" />
+        </property>
+    </bean>-->
+    <bean id="kenny" class="kz.test.step2.Instrumentalist" p:song="From Yesterday" p:age="48" p:instrument-ref="saxophone" />
+
+
+    <bean id="saxophone" class="kz.test.step2.Saxophone" />
+    <bean id="piano" class="kz.test.step2.Piano" />
+    <bean id="hank" class="kz.test.step2.OneManBand">
+        <property name="instruments">
+           <!-- <list>
+                <ref bean="piano"/>
+                <ref bean="saxophone" />
+            </list>-->
+            <set>
+                <ref bean="piano"/>
+                <ref bean="saxophone" />
+                <ref bean="saxophone" />
+                <ref bean="saxophone" />
+            </set>
+        </property>
+    </bean>
+
+    <bean id="hank2" class="kz.test.step2.OneManBandMap">
+        <property name="instruments">
+            <map>
+                <entry key="PIANO" value-ref="piano" />
+                <entry key="SAXOPHONE" value-ref="saxophone" />
+                <entry key="SAXOPHONE" value-ref="saxophone" />
+                <entry key="SAXOPHONE" value-ref="saxophone" />
+            </map>
+        </property>
+    </bean>
+
+    <bean id="hank3" class="kz.test.step2.OneBandManProperties" >
+        <property name="instruments" >
+            <props>
+                <prop key="GUITAR">STRUM STRUM STRUM</prop>
+                <prop key="CYMBAL">CRASH CRASH CRASH</prop>
+                <prop key="HARMONICA">HUM HUM HUM</prop>
+            </props>
+        </property>
+    </bean>
+    <bean id="carl" class="kz.test.step2.Instrumentalist" >
+        <property name="song" value="#{kenny.song}" />
+    </bean>
+
+
+</beans>
